@@ -20,16 +20,27 @@ class ProductManager {
     }
 
     async addProduct(product) {
-        const productPrev = await this.getProducts()
-        let id
-        if (!productPrev.length) {
-            id = 1
+        try {
+            const productPrev = await this.getProducts()
+            if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock) {
+                return "Error campos vacios"
+            }
+            const verifyCode = productPrev.find(c => c.code === code)
+            if (verifyCode) {
+                return "El codigo se repite"
+            }
+            let id
+            if (!productPrev.length) {
+                id = 1
+            }
+            else {
+                id = productPrev[productPrev.length - 1].id + 1
+            }
+            productPrev.push({ ...product, id })
+            await fs.promises.writeFile(this.path, JSON.stringify(productPrev))
+        } catch (error) {
+            return error
         }
-        else {
-            id = productPrev[productPrev.length - 1].id + 1
-        }
-        productPrev.push({ ...product, id })
-        await fs.promises.writeFile(this.path, JSON.stringify(productPrev))
     }
 
     async getProductById(id) {
@@ -53,7 +64,7 @@ class ProductManager {
                 return 'ERROR ID DE PRODUCTO NO ENCONTRADO'
             }
             const product = productsPrev[productsIndex]
-            productsPrev [productsIndex] = { ...product,...obj }
+            productsPrev[productsIndex] = { ...product, ...obj }
             await fs.promises.writeFile(
                 this.path,
                 JSON.stringify(productsPrev)
@@ -80,9 +91,9 @@ class ProductManager {
 
 async function request() {
     const administrador = new ProductManager('Product.json')
-    // const products = await administrador.getProducts()
+    //const products = await administrador.getProducts()
+    //console.log(products);
     //await administrador.addProduct(product2)
-    // console.log(products);
 
     // const productByIdRequest = await administrador.getProductById(5)
     // console.log(productByIdRequest);

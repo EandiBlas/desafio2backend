@@ -1,20 +1,2 @@
 [
-    {
-        "title": "Dove Shampoo",
-        "description": "Shampoo de ducha",
-        "price": 1500,
-        "thumbnail": "",
-        "code": 1,
-        "stock": 200,
-        "id": 1
-    },
-    {
-        "title": "Dove",
-        "description": "Jabón de ducha",
-        "price": 1500,
-        "thumbnail": "",
-        "code": 2,
-        "stock": 200,
-        "id": 2
-    }
 ]
