@@ -19,25 +19,29 @@ class ProductManager {
         }
     }
 
-    async addProduct(product) {
+    async addProduct(title, description, price, thumbnail, code, stock) {
         try {
-            const productPrev = await this.getProducts()
-            if (!product.title || !product.description || !product.price || !product.thumbnail || !product.code || !product.stock) {
+            const productsPrev = await this.getProducts()
+            if (!title || !description || !price || !thumbnail || !code || !stock) {
                 return "Error campos vacios"
             }
-            const verifyCode = productPrev.find(c => c.code === code)
+            const verifyCode = productsPrev.find(c => c.code === code)
             if (verifyCode) {
                 return "El codigo se repite"
             }
             let id
-            if (!productPrev.length) {
+            if (!productsPrev.length) {
                 id = 1
             }
             else {
-                id = productPrev[productPrev.length - 1].id + 1
+                id = productsPrev[productsPrev.length - 1].id + 1
             }
-            productPrev.push({ ...product, id })
-            await fs.promises.writeFile(this.path, JSON.stringify(productPrev))
+            const product = { id, title, description, price, thumbnail, code, stock }
+            productsPrev.push({ ...product, id })
+            await fs.promises.writeFile(
+                this.path,
+                JSON.stringify(productsPrev)
+            )
         } catch (error) {
             return error
         }
@@ -91,22 +95,35 @@ class ProductManager {
 
 async function request() {
     const administrador = new ProductManager('Product.json')
+
+    //Trayendo el array vacio
     //const products = await administrador.getProducts()
     //console.log(products);
-    //await administrador.addProduct(product2)
 
-    // const productByIdRequest = await administrador.getProductById(5)
+    //Agregando los productos
+    //Parametros: title,description,price,thumbnail,code,stock
+    //console.log(await administrador.addProduct("Dove Shampoo", "Shampoo de ducha", 150, 'None', 1, 25));
+    //console.log(await administrador.addProduct("Dove Jabón", "Jabón de ducha", 100, 'None', 2, 25));
+
+    //Traer el producto con el ID
+    // const productByIdRequest = await administrador.getProductById(1)
     // console.log(productByIdRequest);
 
+    //Eliminar el Producto
     //await administrador.deleteProduct(2)
 
+    //Modificando un Producto
     //await administrador.updateProduct(1,obj)
 
 }
 
 obj = {
-    title: 'Dove Gel',
-    description: 'Gel de uso Personal',
+    title: 'Dove Acondicionador',
+    description: 'Acondicionador de ducha',
+    price: 180,
+    thumbnail: 'none',
+    code: 1,
+    stock: 30
 }
 
 const product1 = {

@@ -1,2 +1,20 @@
 [
+    {
+        "id": 1,
+        "title": "Dove Shampoo",
+        "description": "Shampoo de ducha",
+        "price": 150,
+        "thumbnail": "None",
+        "code": 1,
+        "stock": 25
+    },
+    {
+        "id": 2,
+        "title": "Dove Jabón",
+        "description": "Jabón de ducha",
+        "price": 100,
+        "thumbnail": "None",
+        "code": 2,
+        "stock": 25
+    }
 ]
