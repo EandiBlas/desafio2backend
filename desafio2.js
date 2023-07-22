@@ -126,22 +126,4 @@ obj = {
     stock: 30
 }
 
-const product1 = {
-    title: 'Dove Shampoo',
-    description: 'Shampoo de ducha',
-    price: 1500,
-    thumbnail: '',
-    code: 1,
-    stock: 200
-}
-
-const product2 = {
-    title: 'Dove',
-    description: 'Jabón de ducha',
-    price: 1500,
-    thumbnail: '',
-    code: 2,
-    stock: 200
-}
-
 request()
